@@ -33,8 +33,8 @@ const MyCart = () => {
               <th className="text-lg">#</th>
               <th className="text-lg">Image</th>
               <th className="text-lg">Item Name</th>
-              <th className="text-lg">Price</th>
-              <th className="text-lg">Action</th>
+              <th className="text-lg text-end">Price</th>
+              <th className="text-lg text-center">Action</th>
             </tr>
           </thead>
           <tbody>

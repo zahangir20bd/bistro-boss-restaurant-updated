@@ -1,7 +1,40 @@
 import React from "react";
+import { FaTrashAlt } from "react-icons/fa";
+import Swal from "sweetalert2";
+import useCart from "../../../hooks/useCart";
 
 const MyCartRow = ({ item, index }) => {
-  const { image, price, name } = item;
+  const { _id, image, price, name } = item;
+  const [, refetch] = useCart();
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once you delete, you won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/carts/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            refetch();
+            if (data.deletedCount > 0) {
+              Swal.fire(
+                "Deleted!",
+                "Your item has been deleted from cart.",
+                "success"
+              );
+            }
+          });
+      }
+    });
+  };
   return (
     <tr>
       <td>{index + 1}</td>
@@ -20,9 +53,14 @@ const MyCartRow = ({ item, index }) => {
       <td>
         <h4>{name}</h4>
       </td>
-      <td>${price}</td>
-      <td>
-        <button className="btn btn-ghost btn-xs">Delete</button>
+      <td className="text-end">${price.toFixed(2)}</td>
+      <td className="text-center">
+        <button
+          onClick={() => handleDelete(_id)}
+          className="btn text-lg bg-red-600 border-none hover:bg-red-700"
+        >
+          <FaTrashAlt />
+        </button>
       </td>
     </tr>
   );

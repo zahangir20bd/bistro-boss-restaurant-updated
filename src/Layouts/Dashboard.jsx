@@ -4,14 +4,17 @@ import {
   FaBars,
   FaCalendarAlt,
   FaHome,
+  FaShopify,
   FaShoppingCart,
   FaWallet,
 } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
 import { Helmet } from "react-helmet-async";
+import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
+  const [cart] = useCart();
   return (
     <div className="drawer drawer-mobile">
       <Helmet>
@@ -62,6 +65,7 @@ const Dashboard = () => {
           <li>
             <NavLink to="/dashboard/mycart">
               <FaShoppingCart /> My Cart
+              <span className="badge badge-ghost">+{cart?.length || 0}</span>
             </NavLink>
           </li>
           <div className="divider"></div>
@@ -73,6 +77,11 @@ const Dashboard = () => {
           <li>
             <NavLink to="/menu">
               <FaBars /> Menu
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/order/pizza">
+              <FaShopify /> Order Food
             </NavLink>
           </li>
         </ul>
