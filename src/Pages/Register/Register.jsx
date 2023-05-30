@@ -19,21 +19,33 @@ const Register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(data);
     createUser(data.email, data.password).then((result) => {
       const currentUser = result.user;
       // console.log(currentUser);
       updateUserProfile(data.name, data.photoURL)
         .then(() => {
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "New User Created Successfully",
-            showConfirmButton: false,
-            timer: 1600,
-          });
-          reset();
-          navigate("/");
+          const savedUser = { name: data.name, email: data.email };
+
+          fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(savedUser),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              reset();
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "New User Created Successfully",
+                showConfirmButton: false,
+                timer: 1600,
+              });
+              navigate("/");
+            });
         })
         .catch((error) => console.log(error));
     });

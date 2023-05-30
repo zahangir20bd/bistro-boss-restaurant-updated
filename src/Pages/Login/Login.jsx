@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import authImage from "../../assets/login/authentication.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -9,6 +9,7 @@ import {
 } from "react-simple-captcha";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { Helmet } from "react-helmet-async";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const location = useLocation();
@@ -30,21 +31,19 @@ const Login = () => {
     const password = form.password.value;
     console.log(email, password);
 
-    signIn(email, password)
-      .then((result) => {
-        const currentUser = result.user;
-        console.log(currentUser);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Login Successful",
-          showConfirmButton: false,
-          timer: 1600,
-        });
-        form.reset();
-        navigate(from, { replace: true });
-      })
-      .catch((error) => console.log(error));
+    signIn(email, password).then((result) => {
+      const currentUser = result.user;
+      console.log(currentUser);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Login Successful",
+        showConfirmButton: false,
+        timer: 1600,
+      });
+      form.reset();
+      navigate(from, { replace: true });
+    });
   };
 
   const handleValidateCaptcha = (event) => {
@@ -131,6 +130,9 @@ const Login = () => {
                 </Link>
               </p>
               <div className="divider w-1/2 mx-auto">Or Sign in with</div>
+              <div className="w-full mx-auto mb-10">
+                <SocialLogin></SocialLogin>
+              </div>
             </div>
           </form>
         </div>
