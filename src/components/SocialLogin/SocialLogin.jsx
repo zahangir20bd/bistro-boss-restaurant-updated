@@ -1,14 +1,12 @@
 import React, { useContext } from "react";
-import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import { AuthContext } from "../../Providers/AuthProvider";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Result } from "postcss";
 
 const SocialLogin = () => {
   const { googleSignIn, gitHubSignIn, facebookLogin } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  const from = location?.state?.from?.pathName || "/";
+  const from = location.state?.from?.pathName || "/";
 
   const handleGoogleLogin = () => {
     googleSignIn()
