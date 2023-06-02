@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../../Providers/AuthProvider";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -172,7 +173,10 @@ const Register = () => {
                   Go to Login
                 </Link>
               </p>
-              <div className="divider w-1/2 mx-auto">Or Sign in with</div>
+              <div className="divider w-1/2 mx-auto">Or Continue in with</div>
+              <div className="w-full mx-auto mb-10">
+                <SocialLogin></SocialLogin>
+              </div>
             </div>
           </form>
         </div>

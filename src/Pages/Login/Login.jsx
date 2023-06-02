@@ -129,7 +129,7 @@ const Login = () => {
                   Create New Account
                 </Link>
               </p>
-              <div className="divider w-1/2 mx-auto">Or Sign in with</div>
+              <div className="divider w-1/2 mx-auto">Or Continue in with</div>
               <div className="w-full mx-auto mb-10">
                 <SocialLogin></SocialLogin>
               </div>

@@ -11,6 +11,7 @@ import Dashboard from "../Layouts/Dashboard";
 import DashBoardHome from "../Pages/Dashboard/DashBoardHome/DashBoardHome";
 import MyCart from "../Pages/Dashboard/MyCart/MyCart";
 import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
+import AdminRoutes from "./AdminRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -73,7 +74,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/dashboard/all-users",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <AdminRoutes>
+            <AllUsers></AllUsers>
+          </AdminRoutes>
+        ),
       },
     ],
   },
