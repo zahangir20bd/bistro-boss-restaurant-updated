@@ -13,7 +13,7 @@ const PrivateRoutes = ({ children }) => {
         color="#36d7b7"
         cssOverride={{
           margin: "auto",
-          padding: "300px 0",
+          padding: "25% 0",
         }}
       />
     );
@@ -21,6 +21,7 @@ const PrivateRoutes = ({ children }) => {
   if (user) {
     return children;
   }
+
   return <Navigate to="/login" state={{ from: location }} replace></Navigate>;
 };
 
