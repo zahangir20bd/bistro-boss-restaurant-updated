@@ -1,40 +1,52 @@
 import React from "react";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useMenu from "../../../hooks/useMenu";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const ManageItemsRow = ({ item, index }) => {
   const { _id, image, price, name } = item;
-  const [, refetch] = useMenu();
+  const [, , refetch] = useMenu();
+  const [axiosSecure] = useAxiosSecure();
 
-  //   const handleDelete = (id) => {
-  //     Swal.fire({
-  //       title: "Are you sure?",
-  //       text: "Once you delete, you won't be able to revert this!",
-  //       icon: "warning",
-  //       showCancelButton: true,
-  //       confirmButtonColor: "#3085d6",
-  //       cancelButtonColor: "#d33",
-  //       confirmButtonText: "Yes, delete it!",
-  //     }).then((result) => {
-  //       if (result.isConfirmed) {
-  //         fetch(`http://localhost:5000/carts/${id}`, {
-  //           method: "DELETE",
-  //         })
-  //           .then((res) => res.json())
-  //           .then((data) => {
-  //             refetch();
-  //             if (data.deletedCount > 0) {
-  //               Swal.fire(
-  //                 "Deleted!",
-  //                 "Your item has been deleted from cart.",
-  //                 "success"
-  //               );
-  //             }
-  //           });
-  //       }
-  //     });
-  //   };
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Once you delete, you won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axiosSecure.delete(`/menu/${id}`).then((res) => {
+          if (res.data.deletedCount > 0) {
+            refetch();
+            Swal.fire(
+              "Deleted!",
+              "Your item has been deleted from Menu.",
+              "success"
+            );
+          }
+        });
+        // fetch(`http://localhost:5000/carts/${id}`, {
+        //   method: "DELETE",
+        // })
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     refetch();
+        //     if (data.deletedCount > 0) {
+        //       Swal.fire(
+        //         "Deleted!",
+        //         "Your item has been deleted from cart.",
+        //         "success"
+        //       );
+        //     }
+        //   });
+      }
+    });
+  };
 
   return (
     <tr>
@@ -56,11 +68,8 @@ const ManageItemsRow = ({ item, index }) => {
       </td>
       <td className="text-end">${price.toFixed(2)}</td>
       <td className="text-center">
-        <button
-          onClick=""
-          className="btn text-lg bg-red-600 border-none hover:bg-red-700"
-        >
-          Update
+        <button onClick="" className="btn btn-warning text-white text-lg">
+          <FaEdit />
         </button>
       </td>
       <td className="text-center">
