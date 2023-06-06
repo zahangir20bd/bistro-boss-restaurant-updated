@@ -3,6 +3,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { Helmet } from "react-helmet-async";
 import useCart from "../../../hooks/useCart";
 import MyCartRow from "./MyCartRow";
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const [cart] = useCart();
@@ -20,7 +21,9 @@ const MyCart = () => {
       <div className="uppercase flex justify-evenly items-center mt-10 mb-5">
         <h2 className="text-2xl font-bold">Total Items: {cart.length}</h2>
         <h2 className="text-2xl font-bold">Total Price: ${total}</h2>
-        <button className="btn btn-warning btn-sm font-bold">Pay</button>
+        <Link to="/dashboard/payments">
+          <button className="btn btn-warning btn-sm font-bold">Pay</button>
+        </Link>
       </div>
 
       {/* cart data in table view */}
